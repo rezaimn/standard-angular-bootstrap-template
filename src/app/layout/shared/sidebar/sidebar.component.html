@@ -1,48 +1,31 @@
-<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
+<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed,'toggled':sideBarToggled}">
   <div class="list-group">
-    <a  *ngIf="userHasAccessToModule(3)" [routerLink]="['/layout/account-manager']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-user"></i>&nbsp;
-      <span>{{ 'side-bar.account-management' | translate }}</span>
-    </a>
-    <a *ngIf="userHasAccessToModule(4)" [routerLink]="['/layout/role-management']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-users"></i>&nbsp;
-      <span>{{ 'side-bar.role-management' | translate }}</span>
-    </a>
-    <a *ngIf="userHasAccessToModule(1)" [routerLink]="['/layout/appliance']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-      <i class="fa fa-television"></i>&nbsp;
-      <span>{{ 'side-bar.appliance-management' | translate }}</span>
-    </a>
-    <div class="nested-menu">
-      <a *ngIf="userHasAccessToModule(2)" class="list-group-item" (click)="addExpandClass('pages')">
-        <i class="fa fa-cogs"></i>&nbsp;
-        <span>{{ 'side-bar.setting' | translate }}</span>
+    <div *ngFor="let item of sidebarItems">
+      <a *ngIf="item.children.length==0" [routerLink]="item.path" [routerLinkActive]="['router-link-active']"
+         class="list-group-item">
+        <i [class]="'fa fa-fw '+item.icon"></i>&nbsp;
+        <span>{{ item.name | translate }}</span>
       </a>
-      <li class="nested" [class.expand]="showMenu === 'pages'">
-        <ul class="submenu">
-          <li>
-            <a  *ngIf="userHasAccessToScreen(2,2)" [routerLink]="['/layout/setting/types']" [routerLinkActive]="['router-link-active']"
-               class="list-group-item">
-              <i class="fa fa-television"></i>&nbsp;
-              <span>{{ 'side-bar.type-settings' | translate }}</span>
+      <div class="nested-menu">
+        <a *ngIf="item.children.length>0" class="list-group-item" (click)="addExpandClass(item.expandKey)">
+          <i [class]="'fa fa-fw '+item.icon"></i>&nbsp;
+          <span>{{ item.name | translate }}</span>
+          <i class="fa  fa-chevron-down expand-icon"></i>&nbsp;
+        </a>
+        <li class="nested" [class.expand]="showMenu === item.expandKey">
+          <ul class="submenu">
+            <a *ngFor="let child of item.children" [routerLink]="child.path"
+               [routerLinkActive]="['router-link-active']" class="list-group-item">
+              <i [class]="'fa '+child.icon"></i>&nbsp;
+              <span>{{ child.name | translate }}</span>
             </a>
-          </li>
-
-          <li>
-            <a *ngIf="userHasAccessToScreen(2,3)"  [routerLink]="['/layout/setting/role-setting']" [routerLinkActive]="['router-link-active']"
-               class="list-group-item">
-              <i class="fa fa-cog"></i>&nbsp;
-              <span>{{ 'side-bar.role-setting' | translate }}</span>
-            </a>
-          </li>
-
-        </ul>
-      </li>
-    </div>
-
-    <div class="header-fields">
-
+          </ul>
+        </li>
+      </div>
     </div>
   </div>
-
+  <!--<div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">-->
+    <!--<i class="fa fa-fw fa-angle-double-{{collapsed?'right':'left'}}"></i>&nbsp;-->
+    <!--<span>{{ 'Collapse Sidebar' | translate }}</span>-->
+  <!--</div>-->
 </nav>
-

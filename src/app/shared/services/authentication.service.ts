@@ -29,8 +29,8 @@ export class AuthenticationService {
   /**
    *  here we specify that login is a post request that accepts 2 arguments (url,body)
    */
-  login(url: string, body: string): Observable<any>{
-    return this.http.post(this.setUrl(url) , body, this.getOptions('login')).pipe(
+  login(url: string, body:any): Observable<any>{
+    return this.http.post(this.setUrl(url) , body).pipe(
       tap(
         (res: any) => {
 
@@ -45,8 +45,8 @@ export class AuthenticationService {
   /**
    *  here we specify that refreshToken is a post request that accepts 2 arguments (url,body)
    */
-  refreshToken(url: string, body: string): Observable<any> {
-    return this.http.post(this.setUrl(url), body, this.getOptions('login')).pipe(
+  refreshToken(url: string, body: any): Observable<any> {
+    return this.http.post(this.setUrl(url), body).pipe(
       tap(
         (res: any) => {
 
@@ -62,7 +62,7 @@ export class AuthenticationService {
    *  here we specify that logout is a delete request that accepts 1 argument (url)
    */
   logout(url: string): Observable<any> {
-    return this.http.delete(this.setUrl(url), this.getOptions('logout')).pipe(
+    return this.http.delete(this.setUrl(url)).pipe(
       tap(
         (res: any) => {
 
@@ -77,8 +77,8 @@ export class AuthenticationService {
   /**
    *  here we specify that forgetPassword is a post request that accepts 2 arguments (url,body)
    */
-  forgetPassword(url:string, body:string): Observable<any>{
-    return this.http.post(this.setUrl(url) , body, this.getOptions('forgetPassword')).pipe(
+  forgetPassword(url:string, body:any): Observable<any>{
+    return this.http.post(this.setUrl(url) , body).pipe(
       tap(
         (res:any)=>{
         },
@@ -93,7 +93,7 @@ export class AuthenticationService {
    *  here we specify that changePassword is a post request that accepts 2 arguments (url,body)
    */
   changePassword(url:string, body:string): Observable<any>{
-    return this.http.post(this.setUrl(url) , body, this.getOptions('changePassword')).pipe(
+    return this.http.post(this.setUrl(url),body).pipe(
       tap(
         (res:any)=>{
         },
@@ -108,7 +108,7 @@ export class AuthenticationService {
    *  here we specify that getAccount is a get request that accepts 1 argument (url)
    */
   getAccount(url:string): Observable<any>{
-    return this.http.get(this.setUrl(url), this.getOptions('getAccount')).pipe(
+    return this.http.get(this.setUrl(url)).pipe(
       tap(
         (res:any)=>{
         },
@@ -120,56 +120,5 @@ export class AuthenticationService {
   }
 
 
-  /**
-   * here we set headers for every individual request
-   */
-  getOptions(APIName:string){
-    switch (APIName) {
-      case 'login':{
-        const loginHeader=new HttpHeaders({
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Authorization': 'Basic YnJvd3Nlcjo=',
-          'Accept': 'application/json',
-          'Host': environment.baseUrl
-        });
-        return {headers: loginHeader};
-      }
 
-      case 'logout': {
-        const logoutHeader = new HttpHeaders({
-          'Authorization': 'Bearer ' + this.token,
-          'Host': environment.baseUrl
-        });
-        return {headers: logoutHeader};
-      }
-
-      case 'forgetPassword': {
-        const forgetPasswordHeader = new HttpHeaders({
-          'Content-Type': 'text/plain',
-          'Host': environment.baseUrl
-        });
-        return {headers: forgetPasswordHeader};
-      }
-
-      case 'changePassword':{
-        const changePasswordHeader=new HttpHeaders({
-          'Content-Type': 'text/plain',
-          'Authorization': 'Bearer '+this.token ,
-          'Host': environment.baseUrl
-        });
-        return {headers: changePasswordHeader};
-      }
-
-      case 'getAccount': {
-        const getAccountHeader = new HttpHeaders({
-          'Content-Type': '/account/',
-          'Authorization': 'Bearer ' + this.token ,
-          'Accept': 'application/json',
-          'Host': environment.baseUrl
-        });
-        return {headers: getAccountHeader};
-      }
-
-    }
-  }
 }

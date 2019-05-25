@@ -8,6 +8,9 @@ import {SharedModule} from '../shared/modules/shared.module';
 import {SidebarComponent} from './shared/sidebar/sidebar.component';
 import {HeaderComponent} from './shared/header/header.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {LayoutHttpInterceptor} from '../interceptor/layout-http.interceptor';
+import {TranslateModule} from '@ngx-translate/core';
 
 
 
@@ -15,7 +18,8 @@ import {DashboardComponent} from './dashboard/dashboard.component';
   imports: [
     CommonModule,
     LayoutRoutingModule,
-    SharedModule
+    SharedModule,
+    TranslateModule
 
   ],
   declarations: [
@@ -24,7 +28,9 @@ import {DashboardComponent} from './dashboard/dashboard.component';
     HeaderComponent,
     DashboardComponent
   ],
-
+  providers:[
+    { provide: HTTP_INTERCEPTORS, useClass: LayoutHttpInterceptor, multi: true}
+  ]
 })
 export class LayoutModule {
 }

@@ -14,7 +14,6 @@ export class AppComponent implements OnInit{
   ngOnInit() {
     const dom: any = document.querySelector('body');
     this.translate.addLangs(['en', 'fr', 'ur', 'es', 'it', 'fa', 'de', 'zh-CHS']);
-    this.translate.setDefaultLang('fa');
-    dom.classList.toggle('rtl');
+    this.translate.setDefaultLang('en');
   }
 }

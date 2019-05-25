@@ -7,7 +7,7 @@ export const environment = {
   /**
    * This is a Base-Url that will use in development mode API calls
    */
-  baseUrl: 'https://reqres.in/'
+  baseUrl: 'https://reqres.in/api/'
 };
 
 /*

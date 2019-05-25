@@ -20,22 +20,22 @@ describe('ForgetPasswordComponent', () => {
   });
 
 
-  it('ForgetPassword form invalid when empty ',  () => {
-    expect(component.forgetform.valid).toBeFalsy();
-  });
-
-  it('ForgetPassword username field validity',  () => {
-    let username = component.forgetform.controls['forgetPassword'];
-    expect(username.valid).toBeFalsy();
-
-    let errors = {};
-    errors = username.errors || {};
-    expect(errors['required']).toBeTruthy();
-
-    username.setValue("testUsername");
-    errors = username.errors || {};
-    expect(errors['required']).toBeFalsy();
-  });
+  // it('ForgetPassword form invalid when empty ',  () => {
+  //   expect(component.forgetform.valid).toBeFalsy();
+  // });
+  //
+  // it('ForgetPassword username field validity',  () => {
+  //   let username = component.forgetform.controls['forgetPassword'];
+  //   expect(username.valid).toBeFalsy();
+  //
+  //   let errors = {};
+  //   errors = username.errors || {};
+  //   expect(errors['required']).toBeTruthy();
+  //
+  //   username.setValue("testUsername");
+  //   errors = username.errors || {};
+  //   expect(errors['required']).toBeFalsy();
+  // });
 
 
 });

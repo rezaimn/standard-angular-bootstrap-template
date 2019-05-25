@@ -1,19 +1,31 @@
 import {NgModule} from '@angular/core';
 import {HttpService} from '../services/http.service';
+import {AlertMessageComponent} from '../components/alert-message/alert-message.component';
+import {CommonModule} from '@angular/common';
+import {TranslateModule} from '@ngx-translate/core';
+
 
 @NgModule({
   /**
    * Here we can add modules that we want to share.
    */
-  imports: [],
+  imports: [
+    CommonModule,
+    TranslateModule.forChild(),
+  ],
   /**
    * Here we can add components, pipes and directives that we want to share.
    */
-  declarations: [],
+  declarations: [
+    AlertMessageComponent,
+  ],
   /**
    * Here we can add modules, components, pipes and directives that we want to share.
    */
-  exports: [],
+  exports: [
+    AlertMessageComponent
+  ],
+  entryComponents:[ ],
   /**
    * Here we can add services that we want to share.
    */
